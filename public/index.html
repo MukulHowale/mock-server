@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Server</title>
+</head>
+<body>
+    <div id="cont">
+        <h1>Mock Server</h1>
+        <button id="get" onclick="get()">GET Request</button>
+        <button id="post" onclick="post()">POST Request</button>
+        <button id="put" onclick="put()">PUT Request</button>
+        <button id="delete" onclick="del()">DELETE Request</button>
+    </div>
+</body>
+</html>
+<script>
+    let get = async () =>{
+        let res = await fetch("http://localhost:5000/api/products");
+
+        let data = await res.json();
+
+        console.log(data);
+    }
+
+    let post = async () =>{
+        let res = await fetch("http://localhost:5000/api/products", {
+            method : "POST",
+
+            body : JSON.stringify({
+                id: 4,
+                name: "Choco Lava Cake",
+                price: 20,
+                active: true
+            }),
+
+            headers : {
+                "Content-Type" : "application/json"
+            }
+        });
+    }
+
+    let put = async () =>{
+        let res = await fetch("http://localhost:5000/api/products/4", {
+            method : "PUT",
+
+            body : JSON.stringify({
+                id : 4,
+                name : "Oreo Milkshake",
+                price : 40,
+                active : false
+            }),
+
+            headers : {
+                "Content-Type" : "application/json"
+            }
+        })
+    }
+
+    let del = async () =>{
+        let res = await fetch("http://localhost:5000/api/products/4", {
+            method : "DELETE",
+        })
+    }
+</script>
